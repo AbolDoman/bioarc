@@ -143,7 +143,8 @@ const MobileHeaderContent = memo(
     }, [i18n.language]);
 
     const { data } = useQuery({
-      enabled: Boolean(user?.token),
+      // enabled: Boolean(user?.token),
+      enabled: true,
       queryKey: ["doctorProfile", i18n.language, user?.id],
       queryFn: () => fetchUser(i18n.language),
       staleTime: 2 * 60 * 1000, // 2 minutes
@@ -182,13 +183,13 @@ const MobileHeaderContent = memo(
       }
     }, [selectedPatient, setSelectedPatientId, onClose]);
 
-    if (!user || !user.token) {
-      return (
-        <VStack spacing={"16px"} mt={"16px"} overflow={"hidden"}>
-          <LoginButton t={t} />
-        </VStack>
-      );
-    }
+    // if (!user || !user.token) {
+    //   return (
+    //     <VStack spacing={"16px"} mt={"16px"} overflow={"hidden"}>
+    //       <LoginButton t={t} />
+    //     </VStack>
+    //   );
+    // }
 
     return (
       <VStack spacing={"16px"} mt={"16px"} overflow={"hidden"}>

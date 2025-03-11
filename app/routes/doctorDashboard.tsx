@@ -3,7 +3,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     request.headers.get("cookie")
   );
   const user = session.get("user");
-  if (!user || !user.token) throw redirect("/login");
+  // if (!user || !user.token) throw redirect("/login");
   const userAgent = request.headers.get("user-agent");
   let isMobilejs = undefined;
   let isMobile = undefined;

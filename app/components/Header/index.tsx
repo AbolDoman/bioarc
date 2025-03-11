@@ -21,6 +21,7 @@ import {
 
 const fetchUser = async (lang: string) => {
   try {
+    console.log("DDDD");
     const response = await fetch(`/api/doctorProfile?lang=${lang}`);
     if (!response.ok) {
       throw new Error("Failed to fetch user data");
@@ -188,13 +189,14 @@ const Header = memo(({ user }: { user: any }) => {
   }, [i18n.language]);
 
   const { data } = useQuery({
-    enabled: Boolean(user?.token),
+    // enabled: Boolean(user?.token),
+    enabled: true,
     queryKey: ["doctorProfile", i18n.language, user?.id],
     queryFn: () => fetchUser(i18n.language),
     staleTime: 60000, // Cache valid for 1 minute
     cacheTime: 300000, // Keep in cache for 5 minutes
   });
-
+  console.log("data", data);
   const localClinics = useMemo(
     () => (i18n.language === "en" ? clinicsEn : clinics),
     [i18n.language]
@@ -227,34 +229,34 @@ const Header = memo(({ user }: { user: any }) => {
       <HStack spacing={"16px"}>
         <LanguageToggle onToggle={changeLang} currentLanguage={i18n.language} />
 
-        {isAuthenticated ? (
-          <>
-            <NotificationsArea
-              data={data}
-              messageLabel={t("new_messages")}
-              settingLabel={t("setting")}
-              notificationsLabel={t("notifications")}
-            />
+        {/* {isAuthenticated ? ( */}
+        {/* <> */}
+        <NotificationsArea
+          data={data}
+          messageLabel={t("new_messages")}
+          settingLabel={t("setting")}
+          notificationsLabel={t("notifications")}
+        />
 
-            <ClinicalOptions
-              clinics={localClinics}
-              medicineTypes={localMedicineType}
-              doctors={localDoctors}
-              clinicIndex={selectedClinic}
-              medicineTypeIndex={selectedMedicineType}
-              doctorIndex={selectedDoctors}
-              setClinicIndex={setSelectedClinic}
-              setMedicineTypeIndex={setSelectedMedicineType}
-              setDoctorIndex={setSelectedDoctors}
-              polyclinicLabel={t("polyclinic")}
-              fromLabel={t("from")}
-            />
+        <ClinicalOptions
+          clinics={localClinics}
+          medicineTypes={localMedicineType}
+          doctors={localDoctors}
+          clinicIndex={selectedClinic}
+          medicineTypeIndex={selectedMedicineType}
+          doctorIndex={selectedDoctors}
+          setClinicIndex={setSelectedClinic}
+          setMedicineTypeIndex={setSelectedMedicineType}
+          setDoctorIndex={setSelectedDoctors}
+          polyclinicLabel={t("polyclinic")}
+          fromLabel={t("from")}
+        />
 
-            <DoctorProfileMenu data={data} />
-          </>
+        <DoctorProfileMenu data={data} />
+        {/* </>
         ) : (
           <LoginButton label={t("doctorLogin")} />
-        )}
+        )} */}
       </HStack>
     </HStack>
   );
