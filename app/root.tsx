@@ -119,7 +119,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Meta />
           <Links />
         </head>
-        <body style={{ fontFamily: "IRANsans", margin: 0 }} dir={textDirection}>
+        <body
+          style={{
+            fontFamily: "IRANsans",
+            margin: 0,
+            backgroundColor: "white",
+            color: "#424242",
+          }}
+          dir={textDirection}
+        >
           <I18nextProvider i18n={i18n}>
             <Suspense fallback={<div className="app-loading-container"></div>}>
               <MyLayout isMobile={isMobile} user={user}>
